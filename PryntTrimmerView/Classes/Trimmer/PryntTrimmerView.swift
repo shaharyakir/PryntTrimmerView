@@ -271,9 +271,9 @@ public protocol TrimmerViewDelegate: class {
         
         currentLeftConstraint = leftConstraint!.constant
         
-        if let percentage = getPosition(from: timeOffset) {
+        if let position = getPosition(from: timeOffset) {
             
-            updateLeftConstraint(with: CGPoint(x:percentage, y: 0))
+            updateLeftConstraint(with: CGPoint(x:position, y: 0))
             
         }
         
@@ -283,11 +283,11 @@ public protocol TrimmerViewDelegate: class {
     
     public func seekRightHandle(timeOffset:CMTime) {
         
-        currentLeftConstraint = leftConstraint!.constant
+        currentRightConstraint = rightConstraint!.constant
         
-        if let percentage = getPosition(from: timeOffset) {
+        if let position = getPosition(from: timeOffset) {
             
-            updateRightConstraint(with: CGPoint(x:percentage, y: 0))
+            updateRightConstraint(with: CGPoint(x:position * -1, y: 0))
             
         }
         
