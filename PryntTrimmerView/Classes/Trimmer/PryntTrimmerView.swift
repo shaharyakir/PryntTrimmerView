@@ -266,6 +266,34 @@ public protocol TrimmerViewDelegate: class {
         let newConstraint = max(min(0, currentRightConstraint + translation.x), maxConstraint)
         rightConstraint?.constant = newConstraint
     }
+    
+    public func seekLeftHandle(timeOffset:CMTime) {
+        
+        currentLeftConstraint = leftConstraint!.constant
+        
+        if let percentage = getPosition(from: timeOffset) {
+            
+            updateLeftConstraint(with: CGPoint(x:percentage, y: 0))
+            
+        }
+        
+        layoutIfNeeded()
+        
+    }
+    
+    public func seekRightHandle(timeOffset:CMTime) {
+        
+        currentLeftConstraint = leftConstraint!.constant
+        
+        if let percentage = getPosition(from: timeOffset) {
+            
+            updateRightConstraint(with: CGPoint(x:percentage, y: 0))
+            
+        }
+        
+        layoutIfNeeded()
+        
+    }
 
     // MARK: - Asset loading
 
