@@ -12,6 +12,7 @@ import UIKit
 public protocol TrimmerViewDelegate: class {
     func didChangePositionBar(_ playerTime: CMTime)
     func positionBarStoppedMoving(_ playerTime: CMTime)
+    func positionBarStoppedMovingAndFingerLifted()
 }
 
 /// A view to select a specific time range of a video. It consists of an asset preview with thumbnails inside a scroll view, two
@@ -251,6 +252,7 @@ public protocol TrimmerViewDelegate: class {
 
         case .cancelled, .ended, .failed:
             updateSelectedTime(stoppedMoving: true)
+            delegate?.positionBarStoppedMovingAndFingerLifted()
         default: break
         }
     }
