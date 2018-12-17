@@ -51,7 +51,7 @@ class AssetVideoScrollView: UIScrollView {
         contentSize = contentView.bounds.size
     }
 
-    internal func regenerateThumbnails(for asset: AVAsset) {
+    internal func regenerateThumbnails(for asset: AVAsset, videoComposition:AVVideoComposition?) {
         guard let thumbnailSize = getThumbnailFrameSize(from: asset), thumbnailSize.width != 0 else {
             print("Could not calculate the thumbnail size.")
             return
@@ -64,7 +64,7 @@ class AssetVideoScrollView: UIScrollView {
         let thumbnailCount = Int(ceil(newContentSize.width / thumbnailSize.width))
         addThumbnailViews(thumbnailCount, size: thumbnailSize)
         let timesForThumbnail = getThumbnailTimes(for: asset, numberOfThumbnails: thumbnailCount)
-        generateImages(for: asset, at: timesForThumbnail, with: thumbnailSize, visibleThumnails: visibleThumbnailsCount)
+        generateImages(for: asset, at: timesForThumbnail, with: thumbnailSize, visibleThumnails: visibleThumbnailsCount, videoComposition: videoComposition)
     }
 
     private func getThumbnailFrameSize(from asset: AVAsset) -> CGSize? {
@@ -127,12 +127,13 @@ class AssetVideoScrollView: UIScrollView {
         return timesForThumbnails
     }
 
-    private func generateImages(for asset: AVAsset, at times: [NSValue], with maximumSize: CGSize, visibleThumnails: Int) {
+    private func generateImages(for asset: AVAsset, at times: [NSValue], with maximumSize: CGSize, visibleThumnails: Int, videoComposition:AVVideoComposition?) {
 
         generator = AVAssetImageGenerator(asset: asset)
         generator?.appliesPreferredTrackTransform = true
         let scaledSize = CGSize(width: maximumSize.width * UIScreen.main.scale, height: maximumSize.height *  UIScreen.main.scale)
         generator?.maximumSize = scaledSize
+        generator?.videoComposition = videoComposition
         var count = 0
 
         let handler: AVAssetImageGeneratorCompletionHandler = { [weak self] (_, cgimage, _, result, error) in
