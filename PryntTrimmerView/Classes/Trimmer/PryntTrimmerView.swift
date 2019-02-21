@@ -54,13 +54,15 @@ public protocol TrimmerViewDelegate: class {
     // MARK: Subviews
 
     private let trimView = UIView()
-    private let leftHandleView = HandlerView()
-    private let rightHandleView = HandlerView()
+    public let leftHandleView = HandlerView()
+    public let rightHandleView = HandlerView()
     private let positionBar = UIView()
     private let leftHandleKnob = UIView()
     private let rightHandleKnob = UIView()
-    private let leftMaskView = UIView()
-    private let rightMaskView = UIView()
+    public let leftMaskView = UIView()
+    public let rightMaskView = UIView()
+    
+    public var isEnabled = true
 
     // MARK: Constraints
 
@@ -224,6 +226,9 @@ public protocol TrimmerViewDelegate: class {
     // MARK: - Trim Gestures
 
     @objc func handlePanGesture(_ gestureRecognizer: UIPanGestureRecognizer) {
+        
+        guard isEnabled else { return }
+        
         guard let view = gestureRecognizer.view, let superView = gestureRecognizer.view?.superview else { return }
         let isLeftGesture = view == leftHandleView
         switch gestureRecognizer.state {

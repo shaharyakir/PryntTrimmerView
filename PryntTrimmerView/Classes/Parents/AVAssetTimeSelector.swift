@@ -13,7 +13,7 @@ import AVFoundation
 // the asset and a position in the scroll view
 public class AVAssetTimeSelector: UIView, UIScrollViewDelegate {
 
-    let assetPreview = AssetVideoScrollView()
+    public let assetPreview = AssetVideoScrollView()
 
     public var videoComposition:AVVideoComposition?
     
