@@ -62,7 +62,16 @@ public protocol TrimmerViewDelegate: class {
     public let leftMaskView = UIView()
     public let rightMaskView = UIView()
     
-    public var isEnabled = true
+    public var isEnabled = true {
+        
+        didSet {
+            
+            leftHandleView.isUserInteractionEnabled = isEnabled
+            rightHandleView.isUserInteractionEnabled = isEnabled
+            
+        }
+        
+    }
 
     // MARK: Constraints
 
