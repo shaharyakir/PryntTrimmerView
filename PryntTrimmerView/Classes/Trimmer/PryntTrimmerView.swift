@@ -69,6 +69,9 @@ public protocol TrimmerViewDelegate: class {
             leftHandleView.isUserInteractionEnabled = isEnabled
             rightHandleView.isUserInteractionEnabled = isEnabled
             
+            leftHandleView.gestureRecognizers?.forEach { $0.isEnabled = isEnabled }
+            rightHandleView.gestureRecognizers?.forEach { $0.isEnabled = isEnabled }
+            
         }
         
     }
