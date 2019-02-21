@@ -9,7 +9,7 @@
 import AVFoundation
 import UIKit
 
-class AssetVideoScrollView: UIScrollView {
+public class AssetVideoScrollView: UIScrollView {
 
     private var widthConstraint: NSLayoutConstraint?
 
@@ -46,7 +46,7 @@ class AssetVideoScrollView: UIScrollView {
         widthConstraint?.isActive = true
     }
 
-    override func layoutSubviews() {
+    override public func layoutSubviews() {
         super.layoutSubviews()
         contentSize = contentView.bounds.size
     }
