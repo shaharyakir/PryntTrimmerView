@@ -51,20 +51,22 @@ public class AssetVideoScrollView: UIScrollView {
         contentSize = contentView.bounds.size
     }
 
-    internal func regenerateThumbnails(for asset: AVAsset, videoComposition:AVVideoComposition?) {
+    internal func regenerateThumbnails(for asset: AVAsset, videoComposition:AVVideoComposition?, thumbSize:CGSize?) {
         guard let thumbnailSize = getThumbnailFrameSize(from: asset), thumbnailSize.width != 0 else {
             print("Could not calculate the thumbnail size.")
             return
         }
-
+        
+        let effectiveThumbnailSize = thumbSize ?? thumbnailSize
+        
         generator?.cancelAllCGImageGeneration()
         removeFormerThumbnails()
         let newContentSize = setContentSize(for: asset)
-        let visibleThumbnailsCount = Int(ceil(frame.width / thumbnailSize.width))
-        let thumbnailCount = Int(ceil(newContentSize.width / thumbnailSize.width))
-        addThumbnailViews(thumbnailCount, size: thumbnailSize)
+        let visibleThumbnailsCount = Int(ceil(frame.width / effectiveThumbnailSize.width))
+        let thumbnailCount = Int(ceil(newContentSize.width / effectiveThumbnailSize.width))
+        addThumbnailViews(thumbnailCount, size: effectiveThumbnailSize)
         let timesForThumbnail = getThumbnailTimes(for: asset, numberOfThumbnails: thumbnailCount)
-        generateImages(for: asset, at: timesForThumbnail, with: thumbnailSize, visibleThumnails: visibleThumbnailsCount, videoComposition: videoComposition)
+        generateImages(for: asset, at: timesForThumbnail, with: effectiveThumbnailSize, visibleThumnails: visibleThumbnailsCount, videoComposition: videoComposition)
     }
 
     private func getThumbnailFrameSize(from asset: AVAsset) -> CGSize? {

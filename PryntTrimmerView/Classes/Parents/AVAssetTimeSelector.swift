@@ -17,6 +17,8 @@ public class AVAssetTimeSelector: UIView, UIScrollViewDelegate {
 
     public var videoComposition:AVVideoComposition?
     
+    public var thumbSize:CGSize?
+    
     /// The asset to be displayed in the underlying scroll view. Setting a new asset will automatically refresh the thumbnails.
     public var asset: AVAsset? {
         didSet {
@@ -57,7 +59,7 @@ public class AVAssetTimeSelector: UIView, UIScrollViewDelegate {
 
     func assetDidChange(newAsset: AVAsset?) {
         if let asset = newAsset {
-            assetPreview.regenerateThumbnails(for: asset, videoComposition: videoComposition)
+            assetPreview.regenerateThumbnails(for: asset, videoComposition: videoComposition, thumbSize: thumbSize)
         }
     }
 

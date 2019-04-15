@@ -122,6 +122,7 @@ public class ThumbSelectorView: AVAssetTimeSelector {
         generator?.requestedTimeToleranceAfter = CMTime.zero
         generator?.requestedTimeToleranceBefore = CMTime.zero
         generator?.maximumSize = getThumbnailFrameSize(from: asset) ?? CGSize.zero
+        generator?.videoComposition = videoComposition
     }
 
     private func getThumbnailFrameSize(from asset: AVAsset) -> CGSize? {
